@@ -166,6 +166,13 @@
         <h2 style="font-family: 'Baskerville', serif; font-size: 2em; color: #11; text-align: center;">Result:</h2>
         <p style="font-family: 'Baskerville', serif; font-size: 1.5em; text-align: center;">CVD Risk Score: {{ result }}</p>
     {% endif %}
+
+
+
+    {% if hresult is not none %}
+    <h3 style="font-family: 'Baskerville', serif; font-size: 2em; color: #11; text-align: center;">Healthy Result:</h3>
+    <p style="font-family: 'Baskerville', serif; font-size: 1.5em; text-align: center;">Healthy Score: {{ hresult }}</p>
+    {% endif %}
 </body>
 
 </html>

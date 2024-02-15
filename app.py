@@ -1,15 +1,14 @@
 from flask import Flask, render_template, request
 from model import calculate_cvd_score
+from model import calculate_healthy_cvd_score
 
 app = Flask(__name__)
-
 @app.route('/')
 def index():
     return render_template('index.html')
 
 @app.route('/calculate', methods=['POST'])
 def calculate():
-    # Retrieve input values from the form
     age = int(request.form['age'])
     gender = request.form['gender']
     b_AF = int(request.form.get('b_AF', 0))
@@ -34,7 +33,9 @@ def calculate():
     # Call the CVD risk calculation function
     result = calculate_cvd_score(age, gender, b_AF, b_atypicalantipsy, b_corticosteroids, b_impotence2, b_migraine, b_ra, b_renal, b_semi, b_sle, b_treatedhyp, b_type1, b_type2, bmi, fh_cvd, rati, sbp, sbps5, smoke_cat)
 
-    return render_template('index.html', result=result)
+    hresult = calculate_healthy_cvd_score(age, gender, ethrisk=2)
+    return render_template('index.html', result=result, hresult=hresult) 
+    
 
 if __name__ == '__main__':
     app.run(debug=True)
