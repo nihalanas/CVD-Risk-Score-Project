@@ -2,9 +2,10 @@
 
 from flask import Flask, render_template, request
 from model import calculate_cvd_score, calculate_healthy_cvd_score, calculate_relative_risk
+from model import calculate_cvd_score
+from model import calculate_healthy_cvd_score
 
 app = Flask(__name__)
-
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -38,6 +39,8 @@ def calculate():
     relative_risk = calculate_relative_risk(user_result, healthy_result)
 
     return render_template('index.html', user_result=user_result, healthy_result=healthy_result, relative_risk=relative_risk)
-
+    hresult = calculate_healthy_cvd_score(age, gender, ethrisk=2)
+    return render_template('index.html', result=result, hresult=hresult) 
+    
 if __name__ == '__main__':
     app.run(debug=True)
