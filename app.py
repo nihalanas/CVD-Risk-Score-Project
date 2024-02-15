@@ -1,5 +1,7 @@
+# app.py
+
 from flask import Flask, render_template, request
-from model import calculate_cvd_score
+from model import calculate_cvd_score, calculate_healthy_cvd_score, calculate_relative_risk
 
 app = Flask(__name__)
 
@@ -9,7 +11,6 @@ def index():
 
 @app.route('/calculate', methods=['POST'])
 def calculate():
-    # Retrieve input values from the form
     age = int(request.form['age'])
     gender = request.form['gender']
     b_AF = int(request.form.get('b_AF', 0))
@@ -31,10 +32,12 @@ def calculate():
     sbps5 = float(request.form['sbps5'])
     smoke_cat = int(request.form['smoke_cat'])
 
-    # Call the CVD risk calculation function
-    result = calculate_cvd_score(age, gender, b_AF, b_atypicalantipsy, b_corticosteroids, b_impotence2, b_migraine, b_ra, b_renal, b_semi, b_sle, b_treatedhyp, b_type1, b_type2, bmi, fh_cvd, rati, sbp, sbps5, smoke_cat)
+    # Call the CVD risk calculation functions
+    user_result = calculate_cvd_score(age, gender, b_AF, b_atypicalantipsy, b_corticosteroids, b_impotence2, b_migraine, b_ra, b_renal, b_semi, b_sle, b_treatedhyp, b_type1, b_type2, bmi, fh_cvd, rati, sbp, sbps5, smoke_cat)
+    healthy_result = calculate_healthy_cvd_score(age, gender, ethrisk=2)
+    relative_risk = calculate_relative_risk(user_result, healthy_result)
 
-    return render_template('index.html', result=result)
+    return render_template('index.html', user_result=user_result, healthy_result=healthy_result, relative_risk=relative_risk)
 
 if __name__ == '__main__':
     app.run(debug=True)

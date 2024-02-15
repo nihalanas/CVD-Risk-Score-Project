@@ -261,12 +261,57 @@ def calculate_cvd_score(age, gender, b_AF, b_atypicalantipsy, b_corticosteroids,
         return cvd_female_raw(age, b_AF, b_atypicalantipsy, b_corticosteroids, b_impotence2, b_migraine, b_ra, b_renal, b_semi,
                               b_sle, b_treatedhyp, b_type1, b_type2, bmi, ethrisk, fh_cvd, rati, sbp, sbps5, smoke_cat, surv, town)
     else:
-        raise ValueError("Invalid gender. Please specify 'male' or 'female'.")
+        raise ValueError("Invalid gender. Please specify 'male' or 'female.'")
+
+def calculate_healthy_cvd_score(age, gender, ethrisk=2):
+    # Default values for clinical indicators for a healthy person
+    default_values = {
+        'b_AF': 0,
+        'b_atypicalantipsy': 0,
+        'b_corticosteroids': 0,
+        'b_impotence2': 0,
+        'b_migraine': 0,
+        'b_ra': 0,
+        'b_renal': 0,
+        'b_semi': 0,
+        'b_sle': 0,
+        'b_treatedhyp': 0,
+        'b_type1': 0,
+        'b_type2': 0,
+        'fh_cvd': 0,
+        'smoke_cat': 0,
+        'surv': 10,  # Assuming 10-year survival rate for a healthy person
+        'town': 0,  # Assuming default town value for simplicity
+        'sbps5': 0,
+        'ethrisk': 2
+    }
+    
+    # Set the input values
+    input_values = default_values.copy()
+    input_values['age'] = age
+    input_values['gender'] = gender
+    #input_values['ethrisk'] = ethrisk
+    
+    # Values for a healthy person
+    rati = 4.0
+    sbp = 125
+    bmi = 25
+    
+    # Calculate CVD score for a healthy person
+    return calculate_cvd_score(**input_values, rati=rati, sbp=sbp, bmi=bmi)
 
 
+def calculate_relative_risk(user_score, healthy_score):
+    return user_score / healthy_score
 
-# Call the function and print the result
-result = calculate_cvd_score(age, gender, b_AF, b_atypicalantipsy, b_corticosteroids, b_impotence2, b_migraine, b_ra, b_renal, b_semi, 
-                             b_sle, b_treatedhyp, b_type1, b_type2, bmi, fh_cvd, rati, sbp, sbps5, smoke_cat)
+# Call the function to get the user's CVD risk score
+user_result = calculate_cvd_score(age, gender, b_AF, b_atypicalantipsy, b_corticosteroids, b_impotence2, b_migraine, b_ra, b_renal, b_semi, b_sle, b_treatedhyp, b_type1, b_type2, bmi, fh_cvd, rati, sbp, sbps5, smoke_cat)
+print("CVD Score:", user_result)
 
-print("Risk Score:", result)
+# Assuming you have a function to calculate the healthy CVD score
+healthy_result = calculate_healthy_cvd_score(age, gender, ethrisk=2)
+print("Healthy Score:", healthy_result)
+
+# Calculate and print the relative risk
+relative_risk = calculate_relative_risk(user_result, healthy_result)
+print("Relative Risk:", relative_risk)
