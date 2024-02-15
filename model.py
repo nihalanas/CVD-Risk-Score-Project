@@ -245,18 +245,14 @@ b_treatedhyp = 0
 b_type1 = 0
 b_type2 = 0
 bmi = 25
-ethrisk = 0
 fh_cvd = 1
 rati = 4
 sbp = 181
 sbps5 = 0
 smoke_cat = 0
-surv = 10
-town = 0
 
 def calculate_cvd_score(age, gender, b_AF, b_atypicalantipsy, b_corticosteroids, b_impotence2, b_migraine, b_ra, b_renal, b_semi,
-                        b_sle, b_treatedhyp, b_type1, b_type2, bmi, ethrisk, fh_cvd, rati, sbp, sbps5, smoke_cat, surv, town):
-    print(f"Arguments: {age=}, {gender=}, {b_AF=}, {b_atypicalantipsy=}, {b_corticosteroids=}, {b_impotence2=}, {b_migraine=}, {b_ra=}, {b_renal=}, {b_semi=}, {b_sle=}, {b_treatedhyp=}, {b_type1=}, {b_type2=}, {bmi=}, {ethrisk=}, {fh_cvd=}, {rati=}, {sbp=}, {sbps5=}, {smoke_cat=}, {surv=}, {town=}")
+                        b_sle, b_treatedhyp, b_type1, b_type2, bmi, fh_cvd, rati, sbp, sbps5, smoke_cat, ethrisk=2, town=0, surv=10):
 
     if gender == 'male':
         return cvd_male_raw(age, b_AF, b_atypicalantipsy, b_corticosteroids, b_impotence2, b_migraine, b_ra, b_renal, b_semi,
@@ -271,6 +267,6 @@ def calculate_cvd_score(age, gender, b_AF, b_atypicalantipsy, b_corticosteroids,
 
 # Call the function and print the result
 result = calculate_cvd_score(age, gender, b_AF, b_atypicalantipsy, b_corticosteroids, b_impotence2, b_migraine, b_ra, b_renal, b_semi, 
-                             b_sle, b_treatedhyp, b_type1, b_type2, bmi, ethrisk, fh_cvd, rati, sbp, sbps5, smoke_cat, surv, town)
+                             b_sle, b_treatedhyp, b_type1, b_type2, bmi, fh_cvd, rati, sbp, sbps5, smoke_cat)
 
 print("Risk Score:", result)

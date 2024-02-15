@@ -25,20 +25,14 @@ def calculate():
     b_type1 = int(request.form.get('b_type1', 0))
     b_type2 = int(request.form.get('b_type2', 0))
     bmi = float(request.form['bmi'])
-    ethrisk = float(request.form['ethrisk'])
     fh_cvd = int(request.form.get('fh_cvd', 0))
     rati = float(request.form['rati'])
     sbp = float(request.form['sbp'])
     sbps5 = float(request.form['sbps5'])
     smoke_cat = int(request.form['smoke_cat'])
-    surv = float(request.form['surv'])
-    town = float(request.form['town'])
-
-    # Debugging print statements
-    print(f"Request received: {age=}, {gender=}, {b_AF=}, {b_atypicalantipsy=}, {b_corticosteroids=}, {b_migraine=}, {b_ra=}, {b_renal=}, {b_semi=}, {b_sle=}, {b_treatedhyp=}, {b_type1=}, {b_type2=}, {bmi=}, {ethrisk=}, {fh_cvd=}, {rati=}, {sbp=}, {sbps5=}, {smoke_cat=}, {surv=}, {town=}")
 
     # Call the CVD risk calculation function
-    result = calculate_cvd_score(age, gender, b_AF, b_atypicalantipsy, b_corticosteroids, b_impotence2, b_migraine, b_ra, b_renal, b_semi, b_sle, b_treatedhyp, b_type1, b_type2, bmi, ethrisk, fh_cvd, rati, sbp, sbps5, smoke_cat, surv, town)
+    result = calculate_cvd_score(age, gender, b_AF, b_atypicalantipsy, b_corticosteroids, b_impotence2, b_migraine, b_ra, b_renal, b_semi, b_sle, b_treatedhyp, b_type1, b_type2, bmi, fh_cvd, rati, sbp, sbps5, smoke_cat)
 
     return render_template('index.html', result=result)
 
