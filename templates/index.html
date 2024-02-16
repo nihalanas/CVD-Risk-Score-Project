@@ -15,12 +15,12 @@
             background-color: #f4f4f4;
             line-height: 2;
             font-size: 20px;
+            display: flex;
+            justify-content: space-between;
         }
 
-        nav {
-            background-color: #dcdcdc;
-            padding: 10px 0;
-            text-align: center;
+        .left-container {
+            flex: 1;
         }
 
         h1 {
@@ -29,16 +29,18 @@
             color: #11111;
             text-align: center;
             margin: 20px;
+            animation: fadeIn 2s ease-in-out;
         }
 
         form {
-            max-width: 700px;
+            max-width: 400px;
             margin: auto;
             background-color: #ffffff;
             padding: 30px;
             border-radius: 30px;
-            box-shadow: 0 0 250px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
             text-align: left;
+            animation: slideIn 1.5s ease-in-out;
         }
 
         label {
@@ -46,6 +48,7 @@
             align-items: center;
             justify-content: space-between;
             margin-bottom: 15px;
+            color: #555;
         }
 
         input[type="number"],
@@ -69,7 +72,7 @@
         }
 
         button {
-            background-color: #111;
+            background-color: #3cb371;
             color: #fff;
             padding: 10px 20px;
             border: none;
@@ -79,103 +82,160 @@
             display: block;
             margin: auto;
             font-family: 'Baskerville', serif;
+            transition: background-color 0.3s ease-in-out;
         }
 
-        /* Add more styles as needed */
+        button:hover {
+            background-color: #2e8b57;
+        }
+
+        .right-container {
+            flex: 1;
+            padding: 20px;
+        }
+
+        /* Result Styling */
+        .result-container {
+            padding: 20px;
+            background-color: #f0f8ff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .result-title {
+            font-family: 'Baskerville', serif;
+            font-size: 2em;
+            color: #11111;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .result-text {
+            font-family: 'Baskerville', serif;
+            font-size: 1.5em;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
     </style>
 </head>
 
 <body>
-    <h1>CVD Risk Score Calculator</h1>
+    <div class="left-container">
+        <h1>CVD Risk Score Calculator</h1>
 
-    <form method="post" action="/calculate">
-        <label for="age">Age:</label>
-        <input type="number" name="age" required>
+        <form method="post" action="/calculate">
+            <label for="age">Age:</label>
+            <input type="number" name="age" required>
 
-        <label for="gender">Gender:</label>
-        <select name="gender" required>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-        </select>
+            <label for="gender">Gender:</label>
+            <select name="gender" required>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
 
-        <label for="b_AF">History of Atrial Fibrillation:</label>
-        <input type="checkbox" id="b_AF" name="b_AF" value="1">
+            <!-- Add other input fields as needed -->
+            <label for="b_AF">History of Atrial Fibrillation:</label>
+            <input type="checkbox" id="b_AF" name="b_AF" value="1">
 
-        <!-- Add other input fields as needed -->
-        <label for="b_atypicalantipsy">History of Atypical Antipsychotic use:</label>
-        <input type="checkbox" id="b_atypicalantipsy" name="b_atypicalantipsy" value="1">
+            <label for="b_atypicalantipsy">History of Atypical Antipsychotic use:</label>
+            <input type="checkbox" id="b_atypicalantipsy" name="b_atypicalantipsy" value="1">
 
-        <label for="b_corticosteroids">History of Corticosteroid use:</label>
-        <input type="checkbox" id="b_corticosteroids" name="b_corticosteroids" value="1">
+            <label for="b_corticosteroids">History of Corticosteroid use:</label>
+            <input type="checkbox" id="b_corticosteroids" name="b_corticosteroids" value="1">
 
-        <label for="b_impotence2">Erectile dysfunction:</label>
-        <input type="checkbox" id="b_impotence2" name="b_impotence2" value="1">
+            <label for="b_impotence2">Erectile dysfunction:</label>
+            <input type="checkbox" id="b_impotence2" name="b_impotence2" value="1">
 
-        <label for="b_migraine">History of Migraine:</label>
-        <input type="checkbox" id="b_migraine" name="b_migraine" value="1">
+            <label for="b_migraine">History of Migraine:</label>
+            <input type="checkbox" id="b_migraine" name="b_migraine" value="1">
 
-        <label for="b_ra">History of Rheumatoid Arthritis:</label>
-        <input type="checkbox" id="b_ra" name="b_ra" value="1">
+            <label for="b_ra">History of Rheumatoid Arthritis:</label>
+            <input type="checkbox" id="b_ra" name="b_ra" value="1">
 
-        <label for="b_renal">History of Renal Disease:</label>
-        <input type="checkbox" id="b_renal" name="b_renal" value="1">
+            <label for="b_renal">History of Renal Disease:</label>
+            <input type="checkbox" id="b_renal" name="b_renal" value="1">
 
-        <label for="b_semi">History of Diabetes (Semi-Quantitative):</label>
-        <input type="checkbox" id="b_semi" name="b_semi" value="1">
+            <label for="b_semi">History of Diabetes (Semi-Quantitative):</label>
+            <input type="checkbox" id="b_semi" name="b_semi" value="1">
 
-        <label for="b_sle">History of Systemic Lupus Erythematosus (SLE):</label>
-        <input type="checkbox" id="b_sle" name="b_sle" value="1">
+            <label for="b_sle">History of Systemic Lupus Erythematosus (SLE):</label>
+            <input type="checkbox" id="b_sle" name="b_sle" value="1">
 
-        <label for="b_treatedhyp">History of Treated Hypertension:</label>
-        <input type="checkbox" id="b_treatedhyp" name="b_treatedhyp" value="1">
+            <label for="b_treatedhyp">History of Treated Hypertension:</label>
+            <input type="checkbox" id="b_treatedhyp" name="b_treatedhyp" value="1">
 
-        <label for="b_type1">Type 1 Diabetes:</label>
-        <input type="checkbox" id="b_type1" name="b_type1" value="1">
+            <label for="b_type1">Type 1 Diabetes:</label>
+            <input type="checkbox" id="b_type1" name="b_type1" value="1">
 
-        <label for="b_type2">Type 2 Diabetes:</label>
-        <input type="checkbox" id="b_type2" name="b_type2" value="1">
+            <label for="b_type2">Type 2 Diabetes:</label>
+            <input type="checkbox" id="b_type2" name="b_type2" value="1">
 
-        <label for="fh_cvd">Family History of CVD:</label>
-        <input type="checkbox" id="fh_cvd" name="fh_cvd" value="1">
+            <label for="fh_cvd">Family History of CVD:</label>
+            <input type="checkbox" id="fh_cvd" name="fh_cvd" value="1">
 
-        <label for="bmi">BMI:</label>
-        <input type="text" id="bmi" name="bmi" required>
+            <label for="bmi">BMI:</label>
+            <input type="text" id="bmi" name="bmi" required>
 
-        <label for="rati">Cholesterol Ratio:</label>
-        <input type="text" id="rati" name="rati" required>
+            <label for="rati">Cholesterol Ratio:</label>
+            <input type="text" id="rati" name="rati" required>
 
-        <label for="sbp">Systolic Blood Pressure:</label>
-        <input type="text" id="sbp" name="sbp" required>
+            <label for="sbp">Systolic Blood Pressure:</label>
+            <input type="text" id="sbp" name="sbp" required>
 
-        <label for="sbps5">5-Year Systolic Blood Pressure:</label>
-        <input type="text" id="sbps5" name="sbps5" required>
+            <label for="sbps5">5-Year Systolic Blood Pressure:</label>
+            <input type="text" id="sbps5" name="sbps5" required>
 
-        <label for="smoke_cat">Smoking Category:</label>
-        <select id="smoke_cat" name="smoke_cat" required>
-            <option value="0">Never Smoked</option>
-            <option value="1">Ex-Smoker</option>
-            <option value="2">Light Smoker</option>
-            <option value="3">Moderate Smoker</option>
-            <option value="4">Heavy Smoker</option>
-        </select>
-        
-        <button type="submit">Calculate</button>
-    </form>
+            <label for="smoke_cat">Smoking Category:</label>
+            <select id="smoke_cat" name="smoke_cat" required>
+                <option value="0">Never Smoked</option>
+                <option value="1">Ex-Smoker</option>
+                <option value="2">Light Smoker</option>
+                <option value="3">Moderate Smoker</option>
+                <option value="4">Heavy Smoker</option>
+            </select>
 
-    {% if result is not none %}
-        <h2 style="font-family: 'Baskerville', serif; font-size: 2em; color: #11; text-align: center;">Result:</h2>
-        <p style="font-family: 'Baskerville', serif; font-size: 1.5em; text-align: center;">CVD Risk Score: {{ user_result }}</p>
-    {% endif %}
+            <button type="submit">Calculate</button>
+        </form>
+    </div>
 
-    {% if hresult is not none %}
-    <h4 style="font-family: 'Baskerville', serif; font-size: 2em; color: #11; text-align: center;">Healthy Result:</h4>
-    <p style="font-family: 'Baskerville', serif; font-size: 1.5em; text-align: center;">Healthy Score: {{ healthy_result }}</p>
-    {% endif %}
+    <div class="right-container">
+        <div class="result-container">
+            {% if result is not none %}
+                <h2 class="result-title">Result:</h2>
+                <p class="result-text">CVD Risk Score: {{ user_result }}</p>
+            {% endif %}
 
-    {% if hresult is not none %}
-    <h4 style="font-family: 'Baskerville', serif; font-size: 2em; color: #11; text-align: center;">Relative Score:</h4>
-    <p style="font-family: 'Baskerville', serif; font-size: 1.5em; text-align: center;">Relative Risk Score: {{ relative_risk }}</p>
-    {% endif %}
+            {% if hresult is not none %}
+                <h2 class="result-title">Healthy Result:</h2>
+                <p class="result-text">Healthy Score: {{ healthy_result }}</p>
+            {% endif %}
+
+            {% if hresult is not none %}
+                <h2 class="result-title">Relative Score:</h2>
+                <p class="result-text">Relative Risk Score: {{ relative_risk }}</p>
+            {% endif %}
+        </div>
+    </div>
 </body>
 
 </html>
