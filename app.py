@@ -28,13 +28,15 @@ def calculate():
     b_type2 = int(request.form.get('b_type2', 0))
     bmi = float(request.form['bmi'])
     fh_cvd = int(request.form.get('fh_cvd', 0))
+    alc = int(request.form.get('alc', 0))
+    active = int(request.form.get('active', 0))
     rati = float(request.form['rati'])
     sbp = float(request.form['sbp'])
     sbps5 = float(request.form['sbps5'])
     smoke_cat = int(request.form['smoke_cat'])
 
     # Call the CVD risk calculation functions
-    user_result = calculate_cvd_score(age, gender, b_AF, b_atypicalantipsy, b_corticosteroids, b_impotence2, b_migraine, b_ra, b_renal, b_semi, b_sle, b_treatedhyp, b_type1, b_type2, bmi, fh_cvd, rati, sbp, sbps5, smoke_cat)
+    user_result = calculate_cvd_score(age, gender, b_AF, b_atypicalantipsy, b_corticosteroids, b_impotence2, b_migraine, b_ra, b_renal, b_semi, b_sle, b_treatedhyp, b_type1, b_type2, bmi, fh_cvd, alc, active, rati, sbp, sbps5, smoke_cat)
     healthy_result = calculate_healthy_cvd_score(age, gender, ethrisk=2)
     relative_risk = calculate_relative_risk(user_result, healthy_result)
 
